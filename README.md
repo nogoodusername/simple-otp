@@ -2,6 +2,8 @@
 
 A simple OTP Generation and Verification Library which works without a Database or Cache.
 
+[![PyPI version](https://badge.fury.io/py/simple-otp.svg)](https://badge.fury.io/py/simple-otp)
+
 ## Features
 * Does not require database or cache
 * Easy to implement
