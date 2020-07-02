@@ -1,0 +1,4 @@
+wheel
+pip>=20
+twine==3.2.0
+bump2version==1.0.0
