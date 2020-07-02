@@ -67,7 +67,7 @@ make init
 
 ## Make a release build
 1. Ensure that working directory is clean and all files are commited.
-2. Bump the version. Please read [Semantic Versioning 2.0.0](http://semver.org/) before bumping versions.
+2. Bump the version. Please read [Semantic Version 2.0.0](http://semver.org/) before bumping versions.
    ```
    make release PART=[major/minor/patch]
    ```
@@ -83,7 +83,7 @@ make init
 
 ## Publish your changes
 ```
-make deploy TYPE=[prod/stag/dev]
+make deploy
 ```
 
 ## Changelog
