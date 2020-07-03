@@ -32,20 +32,24 @@ otp_handler = OTP(SECRET_KEY,
                   expires_after=2,
                   user_identifier='kshitij.nagvekar@workindia.in')
 
-# generate otp
+# generate OTP - returns OTP and hash
 otp, sig = otp_handler.generate()
 print(otp, sig)
 
-# verify otp
+# verify OTP - correct OTP and hash passed to verify method
 is_verified = otp_handler.verify(otp, sig)
-print(is_verified) # True
+print(is_verified) # returns True
 
+# verify OTP - incorrect hardcoded OTP passed to verify method 
 is_verified = otp_handler.verify('123', sig)
-print(is_verified) # False
+print(is_verified) # returns False
 
+# Sleep added to simulate Expiry of OTP
 sleep(2 * 61)
+# Correct OTP and hash passed to verify method
+# But after expiry time has passed
 is_verified = otp_handler.verify(otp, sig)
-print(is_verified) # False
+print(is_verified) # returns False
 ```
 
 The library also includes helper method to generate a random secret key
