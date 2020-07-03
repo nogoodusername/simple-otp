@@ -33,22 +33,22 @@ otp_handler = OTP(SECRET_KEY,
                   user_identifier='kshitij.nagvekar@workindia.in')
 
 # generate OTP - returns OTP and hash
-otp, hash = otp_handler.generate()
-print(otp, hash)
+otp, sig = otp_handler.generate()
+print(otp, sig)
 
 # verify OTP - correct OTP and hash passed to verify method
-is_verified = otp_handler.verify(otp, hash)
+is_verified = otp_handler.verify(otp, sig)
 print(is_verified) # returns True
 
 # verify OTP - incorrect hardcoded OTP passed to verify method 
-is_verified = otp_handler.verify('123', hash)
+is_verified = otp_handler.verify('123', sig)
 print(is_verified) # returns False
 
 # Sleep added to simulate Expiry of OTP
 sleep(2 * 61)
 # Correct OTP and hash passed to verify method
 # But after expiry time has passed
-is_verified = otp_handler.verify(otp, hash)
+is_verified = otp_handler.verify(otp, sig)
 print(is_verified) # returns False
 ```
 
