@@ -1,9 +1,10 @@
 import hashlib
 import hmac
-import random
+from random import SystemRandom
 from datetime import datetime, timedelta
 from typing import Any, Sequence, Tuple, Optional
 
+random = SystemRandom()
 
 class OTP(object):
     """
@@ -80,10 +81,7 @@ class OTP(object):
         :return: X character long otp
         """
 
-        return ''.join(
-            random.choice(self.otp_chars)
-            for _ in range(self.length)
-        )
+        return ''.join(random.sample(self.otp_chars, self.length))
 
     def __generate_hash_string(self,
                                otp: str,
