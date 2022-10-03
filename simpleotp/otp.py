@@ -70,7 +70,7 @@ class OTP(object):
         hash_string = self.__generate_hash_string(otp, expiry)
         n_dig = self.__hmac(hash_string)
 
-        if dig == n_dig:
+        if hmac.compare_digest(dig, n_dig):
             return True
 
         return False
