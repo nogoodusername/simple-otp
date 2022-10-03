@@ -9,6 +9,7 @@ help:
 	@echo "release		make a release increment"
 	@echo "deploy		deploy package to package repository"
 	@echo "install		install the package to the active python's site-packages"
+	@echo "test		run pytest"
 
 clean: clean-build clean-pyc ## remove all build, coverage and Python artifacts
 
@@ -46,3 +47,6 @@ deploy: ## deploy package to package repository
 
 install: clean ## install the package to the active Python's site-packages
 	python setup.py install
+
+test: install ## run pytest
+	pytest -p no:warnings
