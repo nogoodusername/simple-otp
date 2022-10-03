@@ -1,28 +1,28 @@
 import hashlib
 import hmac
-from random import SystemRandom
 from datetime import datetime, timedelta
-from typing import Any, Sequence, Tuple, Optional
+from random import SystemRandom
+from typing import Any, Optional, Sequence, Tuple
 
 random = SystemRandom()
 
-class OTP(object):
-    """
-    OTP Generations and Verification class
-    """
 
-    def __init__(self,
-                 secret: str,
-                 length: int = 7,
-                 otp_chars: Sequence[str] = None,
-                 digest: Any = hashlib.sha256,
-                 expires_after: int = 15,
-                 user_identifier: Optional[str] = None):
+class OTP(object):
+    def __init__(
+        self,
+        secret: str,
+        length: int = 7,
+        otp_chars: Sequence[str] = None,
+        digest: Any = hashlib.sha256,
+        expires_after: int = 15,
+        user_identifier: Optional[str] = None,
+    ):
         """
-        :param secret          : secret key used for hashing.
-        :param length          : length of otp.
+        OTP Generations and Verification class
+        :param secret          : secret key used for hashing
+        :param length          : length of otp
         :param otp_chars       : list of characters to be used to generate otp. by default setup to send numeric otp
-        :param digest          : digest function to use for hashing.
+        :param digest          : digest function to use for hashing
         :param expires_after   : otp expiry in minutes
         :param user_identifier : user identifier can be phone number, email, user-id, username
         """
@@ -30,8 +30,8 @@ class OTP(object):
         self.length = length
         self.digest = digest
         self.expires_after = expires_after
-        self.user_identifier = user_identifier or 'Secret'
-        self.otp_chars = otp_chars or list('0123456789')
+        self.user_identifier = user_identifier or "Secret"
+        self.otp_chars = otp_chars or list("0123456789")
 
     def generate(self) -> Tuple[str, str]:
         """
@@ -40,7 +40,9 @@ class OTP(object):
         """
 
         otp = self.__generate_otp()
-        expiry = int((datetime.utcnow() + timedelta(minutes=self.expires_after)).timestamp())
+        expiry = int(
+            (datetime.utcnow() + timedelta(minutes=self.expires_after)).timestamp()
+        )
 
         hash_string = self.__generate_hash_string(otp, expiry)
 
@@ -49,9 +51,7 @@ class OTP(object):
 
         return otp, signature
 
-    def verify(self,
-               otp: str,
-               signature: str) -> bool:
+    def verify(self, otp: str, signature: str) -> bool:
         """
         Verify OTP using signature matching
         :param otp       : otp input from client
@@ -59,10 +59,10 @@ class OTP(object):
         :return          : verified boolean
         """
 
-        if signature.find('.') == -1 or len(signature.split('.')) != 2:
+        if signature.find(".") == -1 or len(signature.split(".")) != 2:
             return False
 
-        dig, expiry = signature.split('.')
+        dig, expiry = signature.split(".")
 
         if int(datetime.utcnow().timestamp()) > int(expiry):
             return False
@@ -77,15 +77,13 @@ class OTP(object):
 
     def __generate_otp(self) -> str:
         """
-        Generate OTP of length self.length
+        Generate OTP of length `self.length`
         :return: X character long otp
         """
 
-        return ''.join(random.sample(self.otp_chars, self.length))
+        return "".join(random.sample(self.otp_chars, self.length))
 
-    def __generate_hash_string(self,
-                               otp: str,
-                               expiry: int) -> str:
+    def __generate_hash_string(self, otp: str, expiry: int) -> str:
         """
         Generate string to be used for hashing
         :param otp     : otp string
@@ -102,4 +100,6 @@ class OTP(object):
         :return             : hexadecimal string
         """
 
-        return hmac.new(self.secret.encode(), hash_string.encode(), digestmod=self.digest).hexdigest()
+        return hmac.new(
+            self.secret.encode(), hash_string.encode(), digestmod=self.digest
+        ).hexdigest()
