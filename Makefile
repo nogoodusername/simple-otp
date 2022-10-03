@@ -27,6 +27,7 @@ clean-pyc: ## remove Python file artifacts
 
 init: ## initialise Build Environment
 	pip3 install -r requirements_dev.txt
+	pre-commit install
 
 dist: clean ## builds source and wheel package
 	python setup.py bdist_wheel
