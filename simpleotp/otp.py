@@ -8,10 +8,6 @@ random = SystemRandom()
 
 
 class OTP(object):
-    """
-    OTP Generations and Verification class
-    """
-
     def __init__(
         self,
         secret: str,
@@ -22,10 +18,11 @@ class OTP(object):
         user_identifier: Optional[str] = None,
     ):
         """
-        :param secret          : secret key used for hashing.
-        :param length          : length of otp.
+        OTP Generations and Verification class
+        :param secret          : secret key used for hashing
+        :param length          : length of otp
         :param otp_chars       : list of characters to be used to generate otp. by default setup to send numeric otp
-        :param digest          : digest function to use for hashing.
+        :param digest          : digest function to use for hashing
         :param expires_after   : otp expiry in minutes
         :param user_identifier : user identifier can be phone number, email, user-id, username
         """
@@ -80,7 +77,7 @@ class OTP(object):
 
     def __generate_otp(self) -> str:
         """
-        Generate OTP of length self.length
+        Generate OTP of length `self.length`
         :return: X character long otp
         """
 
